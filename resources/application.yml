@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: bookstore-chain-management
+
+  profiles:
+    active: mysql   # Đổi thành: sqlserver | postgresql | mysql
+
+  # ============== JPA / Hibernate (chung cho cả 3 DB) ==============
+  jpa:
+    hibernate:
+      ddl-auto: update   # Tự tạo/cập nhật bảng theo Entity - phù hợp cho đề án học tập
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: true   # Cho phép lazy-load trong lúc render JSP/serialize JSON (đơn giản hoá cho đề án)
+
+  # ============== Upload file (multipart) ==============
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  # ============== Gửi email OTP (Gmail SMTP) ==============
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-16-char-app-password   # BẮT BUỘC dùng App Password của Gmail, xem README.md
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# ============== Cấu hình riêng của ứng dụng ==============
+app:
+  jwt:
+    secret: "ThisIsASecretKeyForJWT_PleaseChangeItInProduction_BookstoreChain2024!"
+    expiration-ms: 86400000   # 24 giờ
+
+  otp:
+    expire-minutes: 5
+
+# ============== Cloudinary (đăng ký free tại https://cloudinary.com) ==============
+cloudinary:
+  cloud-name: your-cloud-name
+  api-key: your-api-key
+  api-secret: your-api-secret
+
+logging:
+  level:
+    org.springframework.security: INFO
+    vn.bookstore: DEBUG
