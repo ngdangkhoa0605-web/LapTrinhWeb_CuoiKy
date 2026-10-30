@@ -1,0 +1,32 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f7f1;color:#213c32;font-family:Arial,sans-serif}
+    header{padding:30px 48px;background:#193d33;color:white;font-size:29px;font-weight:bold}
+    .path{padding:14px 48px;color:#65746b;font-size:17px}.layout{display:flex;gap:22px;margin:10px 42px}
+    pre{flex:1;min-width:0;margin:0;padding:23px;background:#172923;color:#e7f4e7;border-radius:14px;
+    font:16px/1.56 Consolas,monospace;white-space:pre-wrap;overflow:hidden}
+    aside{width:285px;padding:24px;border-radius:14px;background:white;border:2px solid #c5d9c8;
+    font-size:20px;line-height:1.5}aside b{color:#245745}footer{padding:20px 46px;color:#65746b;font-size:16px}
+    </style></head><body><header>BookController.java</header><div class="path">src/main/java/vn/bookstore/controller/web/BookController.java · dòng 30–50</div>
+    <div class="layout"><pre> 30  	@GetMapping(&quot;/books&quot;)
+ 31  	public String list(
+ 32  			@RequestParam(defaultValue = &quot;0&quot;) int page,
+ 33  			@RequestParam(required = false) String keyword,
+ 34  			@RequestParam(required = false) Integer categoryId,
+ 35  			@RequestParam(required = false) Integer storeId,
+ 36  			Model model) {
+ 37
+ 38  		page = Math.max(0, page);
+ 39  		Page&lt;Book&gt; bookPage = bookService.findAll(page, PAGE_SIZE, keyword, categoryId, storeId);
+ 40
+ 41  		model.addAttribute(&quot;bookPage&quot;, bookPage);
+ 42  		model.addAttribute(&quot;books&quot;, bookPage.getContent());
+ 43  		model.addAttribute(&quot;currentPage&quot;, page);
+ 44  		model.addAttribute(&quot;totalPages&quot;, bookPage.getTotalPages());
+ 45  		model.addAttribute(&quot;keyword&quot;, keyword);
+ 46  		model.addAttribute(&quot;categoryId&quot;, categoryId);
+ 47  		model.addAttribute(&quot;storeId&quot;, storeId);
+ 48  		model.addAttribute(&quot;categories&quot;, categoryService.findActive());
+ 49  		model.addAttribute(&quot;stores&quot;, storeService.findActive());
+ 50  		return &quot;store/book-list&quot;;</pre><aside><b>Bộ lọc và phân trang</b><p>Nhận page/keyword/categoryId/storeId, chặn trang âm, gọi service và truyền kết quả sang JSP.</p>
+    <p>Trích trực tiếp từ source của dự án; số dòng khớp bản hiện tại.</p></aside></div>
+    <footer>Hình diễn giải mã nguồn · Java / Spring Boot</footer></body></html>

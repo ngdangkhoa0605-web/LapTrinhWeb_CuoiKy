@@ -1,0 +1,36 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f7f1;color:#213c32;font-family:Arial,sans-serif}
+    header{padding:30px 48px;background:#193d33;color:white;font-size:29px;font-weight:bold}
+    .path{padding:14px 48px;color:#65746b;font-size:17px}.layout{display:flex;gap:22px;margin:10px 42px}
+    pre{flex:1;min-width:0;margin:0;padding:23px;background:#172923;color:#e7f4e7;border-radius:14px;
+    font:16px/1.56 Consolas,monospace;white-space:pre-wrap;overflow:hidden}
+    aside{width:285px;padding:24px;border-radius:14px;background:white;border:2px solid #c5d9c8;
+    font-size:20px;line-height:1.5}aside b{color:#245745}footer{padding:20px 46px;color:#65746b;font-size:16px}
+    </style></head><body><header>CheckoutController.java</header><div class="path">src/main/java/vn/bookstore/controller/web/CheckoutController.java · dòng 29–53</div>
+    <div class="layout"><pre> 29  	@GetMapping(&quot;/checkout&quot;)
+ 30  	public String checkoutPage(@AuthenticationPrincipal UserPrincipal principal, Model model) {
+ 31  		Cart cart = cartService.getOrCreateCart(principal.getUser());
+ 32  		if (cart.getItems().isEmpty()) {
+ 33  			return &quot;redirect:/cart&quot;;
+ 34  		}
+ 35  		model.addAttribute(&quot;cart&quot;, cart);
+ 36  		model.addAttribute(&quot;checkoutRequest&quot;, new CheckoutRequest());
+ 37  		return &quot;store/checkout&quot;;
+ 38  	}
+ 39
+ 40  	@PostMapping(&quot;/checkout&quot;)
+ 41  	public String checkout(
+ 42  			@AuthenticationPrincipal UserPrincipal principal,
+ 43  			@ModelAttribute CheckoutRequest checkoutRequest,
+ 44  			RedirectAttributes redirect) {
+ 45  		try {
+ 46  			List&lt;Order&gt; orders = orderService.checkout(principal.getUser(), checkoutRequest);
+ 47  			redirect.addFlashAttribute(&quot;alert&quot;,
+ 48  					&quot;Đặt hàng thành công! Đã tạo &quot; + orders.size() + &quot; đơn hàng.&quot;);
+ 49  			return &quot;redirect:/my-orders&quot;;
+ 50  		} catch (BusinessException e) {
+ 51  			redirect.addFlashAttribute(&quot;alert&quot;, e.getMessage());
+ 52  			return &quot;redirect:/checkout&quot;;
+ 53  		}</pre><aside><b>Xử lý thanh toán</b><p>Giỏ rỗng quay về /cart; checkout tạo đơn rồi chuyển /my-orders, thông báo lỗi nghiệp vụ.</p>
+    <p>Trích trực tiếp từ source của dự án; số dòng khớp bản hiện tại.</p></aside></div>
+    <footer>Hình diễn giải mã nguồn · Java / Spring Boot</footer></body></html>

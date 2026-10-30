@@ -1,0 +1,48 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f7f1;color:#213c32;font-family:Arial,sans-serif}
+    header{padding:30px 48px;background:#193d33;color:white;font-size:29px;font-weight:bold}
+    .path{padding:14px 48px;color:#65746b;font-size:17px}.layout{display:flex;gap:22px;margin:10px 42px}
+    pre{flex:1;min-width:0;margin:0;padding:23px;background:#172923;color:#e7f4e7;border-radius:14px;
+    font:16px/1.56 Consolas,monospace;white-space:pre-wrap;overflow:hidden}
+    aside{width:285px;padding:24px;border-radius:14px;background:white;border:2px solid #c5d9c8;
+    font-size:20px;line-height:1.5}aside b{color:#245745}footer{padding:20px 46px;color:#65746b;font-size:16px}
+    </style></head><body><header>Book.java</header><div class="path">src/main/java/vn/bookstore/entity/Book.java · dòng 48–84</div>
+    <div class="layout"><pre> 48  	/** URL ảnh trên Cloudinary */
+ 49  	@Column(name = &quot;image&quot;, length = 500)
+ 50  	private String image;
+ 51
+ 52  	@NotNull(message = &quot;Giá bán không được để trống&quot;)
+ 53  	@Column(name = &quot;price&quot;, nullable = false, precision = 12, scale = 2)
+ 54  	private BigDecimal price;
+ 55
+ 56  	@Column(name = &quot;original_price&quot;, precision = 12, scale = 2)
+ 57  	private BigDecimal originalPrice;
+ 58
+ 59  	@Column(name = &quot;quantity&quot;)
+ 60  	private int quantity;
+ 61
+ 62  	/** NEW, LIKE_NEW, GOOD, FAIR - tình trạng sách cũ */
+ 63  	@Column(name = &quot;condition_grade&quot;, length = 20)
+ 64  	private String conditionGrade = &quot;GOOD&quot;;
+ 65
+ 66  	/** 1 = đang bán, 0 = ngừng bán */
+ 67  	@Column(name = &quot;status&quot;)
+ 68  	private int status = 1;
+ 69
+ 70  	@Column(name = &quot;created_date&quot;)
+ 71  	private LocalDateTime createdDate = LocalDateTime.now();
+ 72
+ 73  	@NotNull(message = &quot;Vui lòng chọn danh mục&quot;)
+ 74  	@ManyToOne(fetch = FetchType.EAGER)
+ 75  	@JoinColumn(name = &quot;category_id&quot;, nullable = false)
+ 76  	private Category category;
+ 77
+ 78  	@NotNull(message = &quot;Vui lòng chọn chi nhánh&quot;)
+ 79  	@ManyToOne(fetch = FetchType.EAGER)
+ 80  	@JoinColumn(name = &quot;store_id&quot;, nullable = false)
+ 81  	private Store store;
+ 82
+ 83  	public boolean isInStock() {
+ 84  		return quantity &gt; 0 &amp;&amp; status == 1;</pre><aside><b>Cấu trúc sách</b><p>Giá, tồn kho, tình trạng cùng liên kết Category/Store là dữ liệu của mỗi đầu sách.</p>
+    <p>Trích trực tiếp từ source của dự án; số dòng khớp bản hiện tại.</p></aside></div>
+    <footer>Hình diễn giải mã nguồn · Java / Spring Boot</footer></body></html>
